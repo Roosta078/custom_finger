@@ -1,3 +1,4 @@
+#include <Adafruit_Fingerprint.h>
 
 class custom_finger : public Adafruit_Fingerprint {
   public:
@@ -11,5 +12,7 @@ class custom_finger : public Adafruit_Fingerprint {
   uint8_t enroll(int id);
   uint8_t verify();
   uint8_t remove(uint8_t id);
+  uint8_t removeall();
+  uint8_t numEnrolled();
   
 };

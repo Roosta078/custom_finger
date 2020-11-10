@@ -1,4 +1,3 @@
-#include <Adafruit_Fingerprint.h>
 #include "custom_finger.h"
 
 //HardwareSerial mySerial(2);
@@ -82,4 +81,20 @@ uint8_t custom_finger::remove(uint8_t id){
 	p = deleteModel(id);
 	
 	return p;
+}
+
+uint8_t custom_finger::removeall(){
+  uint8_t p;
+  
+  p = emptyDatabase();
+  
+  return p;
+}
+
+uint8_t custom_finger::numEnrolled(){
+  uint8_t p;
+
+  p = getTemplateCount();
+  
+  return p;
 }

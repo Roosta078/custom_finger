@@ -1,4 +1,4 @@
-#include <Adafruit_Fingerprint.h>
+//#include <Adafruit_Fingerprint.h>
 #include "custom_finger.h"
 
 HardwareSerial mySerial(2);
