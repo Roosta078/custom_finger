@@ -11,9 +11,14 @@ int custom_finger::fingerprint_init(){
 
 uint8_t custom_finger::enroll(int id){
 	int p = -1;
+	int count=0;
 	LEDcontrol(FINGERPRINT_LED_ON, 0, FINGERPRINT_LED_BLUE); //place finger on sensor
 	while (p != FINGERPRINT_OK) {
 		p = getImage();
+		count++;
+		if (count > TIMEOUT_COUNT){
+			return FINGERPRINT_TIMEOUT;
+		}
 	}
 	LEDcontrol(FINGERPRINT_LED_OFF, 0, FINGERPRINT_LED_BLUE); //remove finger
 	
@@ -23,13 +28,23 @@ uint8_t custom_finger::enroll(int id){
 	}
 
 	p = 0;
+	count=0;
 	while (p != FINGERPRINT_NOFINGER){
 		p = getImage();
+		count++;
+		if (count > TIMEOUT_COUNT){
+			return FINGERPRINT_TIMEOUT;
+		}
 	}
 	
 	LEDcontrol(FINGERPRINT_LED_ON, 0, FINGERPRINT_LED_BLUE); //place finger back
+	count=0;
 	while (p != FINGERPRINT_OK) {
 		p = getImage();
+		count++;
+		if (count > TIMEOUT_COUNT){
+			return FINGERPRINT_TIMEOUT;
+		}
 	}
 	LEDcontrol(FINGERPRINT_LED_OFF, 0, FINGERPRINT_LED_BLUE); //remove finger
 	
@@ -56,8 +71,13 @@ uint8_t custom_finger::enroll(int id){
 uint8_t custom_finger::verify(){ //returns 0 for success, or error code if not
   LEDcontrol(FINGERPRINT_LED_ON, 0, FINGERPRINT_LED_BLUE);
   uint8_t p = getImage();
+  int count=0;
 	while (p != FINGERPRINT_OK) {  //depending on how verify is called, only one call may be neccesary
 		p = getImage();
+		count++;
+		if (count > TIMEOUT_COUNT){
+			return FINGERPRINT_TIMEOUT;
+		}
 	}
 	LEDcontrol(FINGERPRINT_LED_OFF, 0, FINGERPRINT_LED_BLUE);
 	p = image2Tz();

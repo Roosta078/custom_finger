@@ -1,5 +1,7 @@
 #include <Adafruit_Fingerprint.h>
 
+#define TIMEOUT_COUNT 100
+
 class custom_finger : public Adafruit_Fingerprint {
   public:
 #if defined(__AVR__) || defined(ESP8266) || defined(FREEDOM_E300_HIFIVE1)
